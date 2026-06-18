@@ -5,9 +5,14 @@
 
 /* --- Enlaces externos (edítalos aquí cuando cambien) --- */
 // Presentación interactiva de AhaSlides (diagnóstico grupal en vivo).
-// Si el embed muestra "la presentación terminó", reemplaza este enlace
-// por el de "Compartir / Embed" actual de tu cuenta de AhaSlides.
-const AHA_URL = "https://presenter.ahaslides.com/casting/9459681/1781098732923-q3tmf7uapb";
+// --- Enlaces de AhaSlides ---
+// JOIN: enlace de "audiencia" — cada participante lo abre en SU dispositivo y
+// avanza a su propio ritmo (modo autoguiado). Es el botón principal.
+const AHA_JOIN_URL = "https://audience.ahaslides.com/q3tmf7uapb";
+// CAST: enlace de proyección/presentador, solo por si quieres mostrarlo en
+// pantalla durante la sesión. (Las páginas de audiencia suelen NO permitir
+// incrustarse en un iframe, por eso el embed usa este.)
+const AHA_CAST_URL = "https://presenter.ahaslides.com/casting/9459681/1781098732923-q3tmf7uapb";
 // Enlace del cuestionario individual en Microsoft Forms.
 // Pégalo aquí y el botón se activará automáticamente. Si lo dejas vacío,
 // se muestra un recuadro "pendiente de enlazar".
@@ -71,9 +76,9 @@ function EvaluacionView() {
             <Icon name="layers" size={24} />
           </span>
           <div>
-            <div className="h3" style={{ fontSize: 18 }}>Diagnóstico grupal · en vivo</div>
+            <div className="h3" style={{ fontSize: 18 }}>Diagnóstico grupal · a tu ritmo</div>
             <p className="muted" style={{ margin: "6px 0 0", fontSize: 15, lineHeight: 1.55 }}>
-              Presentación interactiva (AhaSlides) que se proyecta en la sesión. Todos responden desde el celular y los resultados se ven al instante: ideal para medir el punto de partida del grupo.
+              Presentación interactiva (AhaSlides) que cada participante abre en su propio dispositivo y recorre a su ritmo. Activa el grupo y rompe el hielo antes de entrar en materia.
             </p>
           </div>
         </div>
@@ -96,25 +101,41 @@ function EvaluacionView() {
           <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
             <span style={{ color: "var(--blue)" }}><Icon name="play" size={20} /></span>
             <div>
-              <div className="h3" style={{ fontSize: 18 }}>Diagnóstico grupal en vivo</div>
-              <div className="muted" style={{ fontSize: 13.5 }}>Proyecta esta presentación y comparte el código de AhaSlides con el equipo.</div>
+              <div className="h3" style={{ fontSize: 18 }}>Diagnóstico grupal · a tu ritmo</div>
+              <div className="muted" style={{ fontSize: 13.5 }}>Cada participante lo abre en su propio dispositivo y avanza cuando quiera.</div>
             </div>
           </div>
-          <a className="btn btn-ghost btn-sm" href={AHA_URL} target="_blank" rel="noopener">
-            <Icon name="arrow" size={15} stroke={2.4} /> Abrir en pantalla completa
+          <a className="btn btn-primary" href={AHA_JOIN_URL} target="_blank" rel="noopener">
+            <Icon name="arrow" size={17} stroke={2.4} /> Abrir el diagnóstico
           </a>
         </div>
-        {/* embed responsivo 16:9 */}
-        <div style={{ position: "relative", width: "100%", paddingBottom: "59.27%", height: 0, background: "#0c1422" }}>
-          <iframe
-            src={AHA_URL}
-            title="Diagnóstico grupal · AhaSlides"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
-            allowFullScreen
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" />
+
+        {/* enlace visible para copiar / escribir en el celular */}
+        <div style={{ padding: "18px 20px", display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", justifyContent: "space-between", borderBottom: "1px solid var(--line)" }}>
+          <div style={{ display: "flex", gap: 11, alignItems: "center", minWidth: 0 }}>
+            <span style={{ color: "var(--blue)", flexShrink: 0 }}><Icon name="search" size={18} /></span>
+            <span className="mono" style={{ fontSize: 14.5, color: "var(--ink)", wordBreak: "break-all" }}>{AHA_JOIN_URL.replace(/^https?:\/\//, "")}</span>
+          </div>
+          <CopyButton text={AHA_JOIN_URL} label="Copiar enlace" />
         </div>
-        <div style={{ padding: "12px 20px", background: "var(--surface)", fontSize: 13, color: "var(--muted)", display: "flex", gap: 8, alignItems: "center" }}>
-          <Icon name="bulb" size={15} /> Si el recuadro queda en negro o dice que la presentación terminó, abre AhaSlides y actualiza el enlace en <span className="mono" style={{ background: "#fff", padding: "2px 7px", borderRadius: 6, fontSize: 12 }}>AHA_URL</span>.
+
+        {/* vista de proyección opcional (casting) */}
+        <details>
+          <summary style={{ cursor: "pointer", padding: "12px 20px", fontSize: 13.5, fontWeight: 700, color: "var(--blue)", listStyle: "none" }}>
+            <Icon name="play" size={14} /> Mostrar vista para proyectar (opcional)
+          </summary>
+          <div style={{ position: "relative", width: "100%", paddingBottom: "59.27%", height: 0, background: "#0c1422" }}>
+            <iframe
+              src={AHA_CAST_URL}
+              title="Diagnóstico grupal · AhaSlides"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+              allowFullScreen
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" />
+          </div>
+        </details>
+
+        <div style={{ padding: "12px 20px", background: "var(--surface)", fontSize: 13, color: "var(--muted)", display: "flex", gap: 8, alignItems: "flex-start" }}>
+          <Icon name="bulb" size={15} /> <span>Comparte el botón o el enlace para que cada quien lo abra en su celular. La “vista para proyectar” es solo para mostrarlo en la sala; el avance individual ocurre en cada dispositivo.</span>
         </div>
       </div>
 
