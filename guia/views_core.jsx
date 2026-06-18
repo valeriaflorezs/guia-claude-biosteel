@@ -17,6 +17,7 @@ function HubView() {
     { v: "trucos", icon: "bulb", t: "Trucos de optimización", d: "8 tips para exprimir tu suscripción.", feat: false },
     { v: "reglas", icon: "lock", t: "Reglas de oro", d: "Qué SÍ y qué NO subir a Claude.", feat: false },
     { v: "glosario", icon: "book", t: "Glosario", d: "Tokens, alucinaciones, proyectos, MCP…", feat: false },
+    { v: "evaluacion", icon: "target", t: "Diagnóstico y evaluación", d: "Diagnóstico grupal en vivo + cuestionario PRE/POS.", feat: false },
   ];
 
   return (

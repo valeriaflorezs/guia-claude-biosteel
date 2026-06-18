@@ -87,6 +87,7 @@ function TopBar() {
     { v: "trucos", label: "Trucos" },
     { v: "reglas", label: "Reglas de oro" },
     { v: "glosario", label: "Glosario" },
+    { v: "evaluacion", label: "Diagnóstico" },
   ];
   const active = (v) => route.view === v || (v === "ruta" && route.view === "modulo");
   return (
