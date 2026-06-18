@@ -39,9 +39,23 @@ const CLAVE_RESPUESTAS = [
     nota: "Distractor frecuente: «Proyecto». Recuerda la distinción del Módulo 13 — la Skill enseña CÓMO ejecutar la tarea siempre igual; el Proyecto aporta memoria y conocimiento del área." },
 ];
 
+/* --- PIN del facilitador para ver la clave de respuestas --- */
+/* Nota: es un candado de cortesía (la app corre solo en el navegador).
+   Evita que se proyecten las respuestas por accidente, pero no es
+   seguridad real: cámbialo cuando quieras. */
+const CLAVE_PIN = "biosteel2026";
+
 function EvaluacionView() {
-  const [verClave, setVerClave] = React.useState(false);
+  const [abierto, setAbierto] = React.useState(false);
+  const [autorizado, setAutorizado] = React.useState(false);
+  const [pin, setPin] = React.useState("");
+  const [error, setError] = React.useState(false);
   const totalPts = CLAVE_RESPUESTAS.reduce((s, x) => s + x.pts, 0);
+
+  const intentar = () => {
+    if (pin.trim() === CLAVE_PIN) { setAutorizado(true); setError(false); setPin(""); }
+    else { setError(true); }
+  };
 
   return (
     <div className="container section">
@@ -148,25 +162,57 @@ function EvaluacionView() {
         </div>
       </div>
 
-      {/* --- CLAVE DE RESPUESTAS (uso del facilitador) --- */}
+      {/* --- CLAVE DE RESPUESTAS (protegida por PIN del facilitador) --- */}
       <div className="card" style={{ overflow: "hidden", marginTop: 26 }}>
         <button
-          onClick={() => setVerClave((v) => !v)}
-          style={{ width: "100%", textAlign: "left", border: "none", background: verClave ? "var(--navy)" : "#fff", color: verClave ? "#fff" : "var(--ink)", cursor: "pointer", padding: 20, display: "flex", alignItems: "center", gap: 14, transition: "background .15s, color .15s" }}>
-          <span style={{ width: 44, height: 44, borderRadius: 11, flexShrink: 0, display: "grid", placeItems: "center", background: verClave ? "rgba(255,255,255,.12)" : "var(--blue-050)", color: verClave ? "#fff" : "var(--blue)" }}>
-            <Icon name="shield" size={22} />
+          onClick={() => setAbierto((v) => !v)}
+          style={{ width: "100%", textAlign: "left", border: "none", background: abierto ? "var(--navy)" : "#fff", color: abierto ? "#fff" : "var(--ink)", cursor: "pointer", padding: 20, display: "flex", alignItems: "center", gap: 14, transition: "background .15s, color .15s" }}>
+          <span style={{ width: 44, height: 44, borderRadius: 11, flexShrink: 0, display: "grid", placeItems: "center", background: abierto ? "rgba(255,255,255,.12)" : "var(--blue-050)", color: abierto ? "#fff" : "var(--blue)" }}>
+            <Icon name="lock" size={22} />
           </span>
           <span style={{ flex: 1 }}>
             <span className="h3" style={{ fontSize: 18, display: "block", color: "inherit" }}>Clave de respuestas</span>
-            <span style={{ fontSize: 13.5, color: verClave ? "#c5d2e8" : "var(--muted)" }}>Solo para el facilitador · no proyectar antes de la revisión grupal</span>
+            <span style={{ fontSize: 13.5, color: abierto ? "#c5d2e8" : "var(--muted)" }}>Protegida · solo el facilitador con el PIN puede verla</span>
           </span>
-          <span style={{ fontWeight: 800, fontSize: 13.5, display: "inline-flex", alignItems: "center", gap: 7, color: verClave ? "#7fb2f0" : "var(--blue)" }}>
-            {verClave ? "Ocultar" : "Mostrar respuestas"}
-            <span style={{ transform: verClave ? "rotate(90deg)" : "none", transition: "transform .2s", display: "inline-flex" }}><Icon name="arrow" size={16} stroke={2.4} /></span>
+          <span style={{ fontWeight: 800, fontSize: 13.5, display: "inline-flex", alignItems: "center", gap: 7, color: abierto ? "#7fb2f0" : "var(--blue)" }}>
+            {abierto ? "Cerrar" : "Abrir"}
+            <span style={{ transform: abierto ? "rotate(90deg)" : "none", transition: "transform .2s", display: "inline-flex" }}><Icon name="arrow" size={16} stroke={2.4} /></span>
           </span>
         </button>
 
-        {verClave && (
+        {/* Pantalla de PIN (si está abierto pero no autorizado) */}
+        {abierto && !autorizado && (
+          <div style={{ padding: "30px 24px", textAlign: "center" }} className="fade-up">
+            <span style={{ width: 56, height: 56, borderRadius: 14, background: "var(--blue-050)", color: "var(--blue)", display: "grid", placeItems: "center", margin: "0 auto" }}><Icon name="lock" size={28} /></span>
+            <div className="h3" style={{ marginTop: 14, fontSize: 18 }}>Ingresa el PIN del facilitador</div>
+            <p className="muted" style={{ maxWidth: 380, margin: "8px auto 0", fontSize: 14, lineHeight: 1.5 }}>
+              Las respuestas quedan ocultas para que no se proyecten por accidente durante la sesión.
+            </p>
+            <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 20, flexWrap: "wrap" }}>
+              <input
+                type="password"
+                value={pin}
+                onChange={(e) => { setPin(e.target.value); setError(false); }}
+                onKeyDown={(e) => e.key === "Enter" && intentar()}
+                placeholder="PIN"
+                autoFocus
+                style={{ width: 200, padding: "12px 14px", borderRadius: 11, border: "1.5px solid " + (error ? "var(--bad)" : "var(--line-strong)"), fontSize: 16, fontFamily: "var(--mono)", textAlign: "center", letterSpacing: ".1em", outline: "none" }}
+                onFocus={(e) => !error && (e.target.style.borderColor = "var(--blue)")}
+                onBlur={(e) => !error && (e.target.style.borderColor = "var(--line-strong)")} />
+              <button className="btn btn-primary" onClick={intentar}>
+                <Icon name="check" size={17} stroke={2.6} /> Desbloquear
+              </button>
+            </div>
+            {error && (
+              <div style={{ marginTop: 12, color: "var(--bad)", fontSize: 13.5, fontWeight: 700, display: "inline-flex", alignItems: "center", gap: 7 }}>
+                <Icon name="close" size={15} stroke={3} /> PIN incorrecto, inténtalo de nuevo.
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Respuestas (autorizado) */}
+        {abierto && autorizado && (
           <div style={{ padding: 8 }} className="fade-up">
             {CLAVE_RESPUESTAS.map((it, i) => (
               <div key={it.n} style={{ padding: "16px 16px", borderTop: i === 0 ? "none" : "1px solid var(--line)", display: "flex", gap: 14, alignItems: "flex-start" }}>
