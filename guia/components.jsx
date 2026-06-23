@@ -81,13 +81,14 @@ function PromptCard({ rol, texto }) {
 function TopBar() {
   const { route, go } = useNav();
   const items = [
+    { v: "videos", label: "Videos" },
+    { v: "evaluacion", label: "Diagnóstico" },
     { v: "ruta", label: "Ruta" },
     { v: "recetario", label: "Recetario" },
     { v: "casos", label: "Casos por área" },
     { v: "trucos", label: "Trucos" },
     { v: "reglas", label: "Reglas de oro" },
     { v: "glosario", label: "Glosario" },
-    { v: "evaluacion", label: "Diagnóstico" },
   ];
   const active = (v) => route.view === v || (v === "ruta" && route.view === "modulo");
   return (

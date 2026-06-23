@@ -26,7 +26,7 @@ function App() {
     hub: HubView, ruta: RutaView, modulo: ModuloView, casos: CasosView,
     recetario: RecetarioView, reglas: ReglasView, glosario: GlosarioView,
     trucos: TrucosView, proyecto: ProyectoView, manual: ManualView, deck: DeckView,
-    evaluacion: EvaluacionView,
+    evaluacion: EvaluacionView, videos: VideosView,
   };
   const View = views[route.view] || HubView;
 
