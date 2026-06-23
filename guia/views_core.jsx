@@ -11,13 +11,14 @@ function HubView() {
   const pct = Math.round((progress.length / totalMods) * 100);
 
   const tiles = [
+    { v: "videos", icon: "play", t: "Videos de la capacitación", d: "Las tres grabaciones: Introducción, Contenido y Herramientas.", feat: false },
+    { v: "evaluacion", icon: "target", t: "Diagnóstico y evaluación", d: "Diagnóstico grupal en vivo + cuestionario PRE/POS.", feat: false },
     { v: "ruta", icon: "map", t: "Ruta de aprendizaje", d: "Niveles 1→4 · 16 módulos con ejercicios.", feat: false },
     { v: "recetario", icon: "flask", t: "Recetario de prompts", d: "Arma tu prompt: Contexto + Tarea + Formato.", feat: true },
     { v: "casos", icon: "hospital", t: "Casos por área", d: "Finanzas · Logística · SST · Compras · más.", feat: false },
     { v: "trucos", icon: "bulb", t: "Trucos de optimización", d: "8 tips para exprimir tu suscripción.", feat: false },
     { v: "reglas", icon: "lock", t: "Reglas de oro", d: "Qué SÍ y qué NO subir a Claude.", feat: false },
     { v: "glosario", icon: "book", t: "Glosario", d: "Tokens, alucinaciones, proyectos, MCP…", feat: false },
-    { v: "evaluacion", icon: "target", t: "Diagnóstico y evaluación", d: "Diagnóstico grupal en vivo + cuestionario PRE/POS.", feat: false },
   ];
 
   return (
