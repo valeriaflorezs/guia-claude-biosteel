@@ -3,8 +3,9 @@
    ============================================================ */
 
 /* Los tres videos en orden. Para cambiar una URL, reemplaza `embed`.
-   Las URLs deben ser las de INSERCIÓN de OneDrive (con ?width=&height=)
-   y el archivo debe estar compartido como "Cualquiera con el enlace". */
+   Deben ser URLs de INSERCIÓN de YouTube (formato https://www.youtube.com/embed/ID).
+   El video en YouTube debe estar como "Público" o "No listado" y con
+   "Permitir insertar" activado en la configuración avanzada. */
 const VIDEOS_CAP = [
   {
     n: "01",
@@ -46,10 +47,10 @@ function VideoEmbedCard({ n, titulo, desc, embed }) {
           <iframe
             src={embed}
             title={titulo}
-            allow="autoplay; fullscreen; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
             frameBorder="0"
-            scrolling="no"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
           />
         ) : (
