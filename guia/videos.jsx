@@ -10,19 +10,19 @@ const VIDEOS_CAP = [
     n: "01",
     titulo: "Introducción",
     desc: "Bienvenida, objetivos y cómo aprovechar esta capacitación.",
-    embed: "https://1drv.ms/v/c/9524d911e436709d/IQQvzuRak3oXRonzT-hi8s2yAVRs66_ZdTKBihewrzOAvRo?width=1920&height=1080",
+    embed: "https://youtu.be/lCHZkgw41HI",
   },
   {
     n: "02",
     titulo: "Contenido",
     desc: "Desarrollo de los temas centrales del programa.",
-    embed: "https://1drv.ms/v/c/9524d911e436709d/IQSjp5VqBqfoQYEwa_KCQQNlAR07kGGj1NzEFbc2Qv8DF8A?width=1920&height=1080",
+    embed: "https://youtu.be/7yWY0Dil8v8",
   },
   {
     n: "03",
     titulo: "Herramientas y Material",
     desc: "Recursos prácticos y material de apoyo para empezar a usar Claude.",
-    embed: "https://1drv.ms/v/c/9524d911e436709d/IQT30xgWuCBAR6TbzA6Yo7G6AbaJzhxKl0URLbsdTXmuW8U?width=1920&height=1080",
+    embed: "https://youtu.be/sceIGlAjbLM",
   },
 ];
 
